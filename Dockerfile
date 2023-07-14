@@ -1,5 +1,9 @@
-FROM java:8
-EXPOSE 9000
-ADD target/*.jar /app.jar
-RUN bash -c 'touch /app.jar'
-CMD ["java","-Dspring.profiles.active=docker","-jar","/app.jar"]
+FROM python:3.6
+
+RUN mkdir /code
+WORKDIR /code
+ADD . /code/
+RUN pip install -r requirements.txt
+
+EXPOSE 9090
+CMD ["python", "/code/app.py"]
